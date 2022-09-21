@@ -1,16 +1,14 @@
 <?php
 
-use Alura\Doctrine\Entity\Phone;
 use Alura\Doctrine\Entity\Student;
 use Alura\Doctrine\Helper\EntityManagerCreator;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $entityManager = EntityManagerCreator::createEntityManager();
+$studentRepository = $entityManager->getRepository(Student::class);
 
-$student = new Student('Caba Telefonado');
-$student->addPhone(new Phone('(11) 94321-1234'));
-$student->addPhone(new Phone('(11) 91234-1234'));
+$student = $studentRepository->find($argv[1]);
+$student->name = $argv[2];
 
-$entityManager->persist($student);
 $entityManager->flush();
